@@ -24,7 +24,7 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); 
 /* ---------- Settings (from .env) ---------- */
 const PORT = Number(process.env.PORT) || 3000;
 const DATA_DIR = path.join(__dirname, "data");
