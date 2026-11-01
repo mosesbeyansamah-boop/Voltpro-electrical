@@ -179,10 +179,11 @@ app.get("/api/messages", (req, res) => {
         .filter(Boolean).reverse();                         // newest first
     res.json({ ok: true, count: messages.length, messages });
 });
-
+app.get("/", (req, res) => res.json({ ok: true, name: "VoltPro LIVE" }));
 app.get("/api/health", (req, res) => res.json({ ok: true, email: Boolean(mailer), time: new Date().toISOString() }));
 
 /* ---------- Errors ---------- */
+
 app.use("/api", (req, res) => res.status(404).json({ ok: false, error: "Not found." }));
 app.use((err, req, res, next) => {                           // bad JSON, too-large body, etc.
     if (res.headersSent) return next(err);
