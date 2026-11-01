@@ -179,7 +179,11 @@ app.get("/api/messages", (req, res) => {
         .filter(Boolean).reverse();                         // newest first
     res.json({ ok: true, count: messages.length, messages });
 });
-app.get("/", (req, res) => res.json({ ok: true, name: "VoltPro LIVE" }));
+app.use(express.static(__dirname));
+
+app.get("/", (req, res) => {
+  res.sendFile(require('path').join(__dirname, 'index.html'));
+});
 app.get("/api/health", (req, res) => res.json({ ok: true, email: Boolean(mailer), time: new Date().toISOString() }));
 
 /* ---------- Errors ---------- */
