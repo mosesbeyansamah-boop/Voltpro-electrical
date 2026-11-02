@@ -1,10 +1,16 @@
 /* =====================================================================
    VOLTPRO ELECTRICAL SOLUTIONS - BACKEND SERVER (Node.js + Express)
-   Works on your computer (npm start) AND on Vercel.
+   ---------------------------------------------------------------------
+   What this server does
+     1. Serves your website files from the /public folder.
+     2. POST /api/contact  receives the contact form, checks it, blocks
+        spam, SAVES it to data/messages.jsonl and EMAILS it to you.
+     3. GET  /api/messages lets only you read the saved messages
+        (needs the ADMIN_TOKEN from your .env file).
+     4. GET  /api/health   quick "is the server alive" check.
 
-   FILES IN THE ROOT OF YOUR REPO:
-     server.js, package.json, vercel.json, index.html, style.css, script.js
-     (optional folders: images/ or assets/)
+   Run it:   npm install   then   npm start   then open http://localhost:3000
+   Settings: copy .env.example to .env and fill it in (see README.md).
    ===================================================================== */
 
 require("dotenv").config();
@@ -18,16 +24,15 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const ON_VERCEL = Boolean(process.env.VERCEL);
-
-/* ---------- Settings (from .env locally, from Vercel Environment Variables online) ---------- */
+app.use(express.static(__dirname));
+/* ---------- Settings (from .env) ---------- */
 const PORT = Number(process.env.PORT) || 3000;
-// Vercel's disk is read-only except /tmp (and /tmp is wiped often), so email is what really delivers messages there.
-const DATA_DIR = ON_VERCEL ? "/tmp" : path.join(__dirname, "data");
+const DATA_DIR = path.join(__dirname, "data");
 const MESSAGES_FILE = path.join(DATA_DIR, "messages.jsonl");
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "";
 const CONTACT_TO = process.env.CONTACT_TO || process.env.SMTP_USER || "";
 
+// The services allowed in the form. Must match the <option> texts in index.html
 const SERVICES = [
     "Residential Electrical",
     "Commercial Electrical",
@@ -38,48 +43,35 @@ const SERVICES = [
     "Other",
 ];
 
-/* ---------- Basic safety ---------- */
+/* ---------- Basic safety for the whole app ---------- */
 app.disable("x-powered-by");
+// contentSecurityPolicy is off so Google Fonts and Unsplash pictures keep working.
 app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
-if (ON_VERCEL || process.env.TRUST_PROXY) app.set("trust proxy", Number(process.env.TRUST_PROXY) || 1);
-app.use(express.json({ limit: "20kb" }));
-
-/* ---------- WEBSITE FILES (this is what fixes the missing colours) ----------
-   Only these files are public. server.js, package.json and .env are NOT served. */
-const ROOT = __dirname;
-const PAGE_FILES = ["index.html", "style.css", "script.js"];
-
-app.get("/", (req, res) => res.sendFile(path.join(ROOT, "index.html")));
-PAGE_FILES.forEach(file => {
-    app.get("/" + file, (req, res) => res.sendFile(path.join(ROOT, file)));
-});
-// Optional folders for pictures. Create the folder and put files in it if you need them.
-["images", "assets", "public"].forEach(dir => {
-    app.use("/" + dir, express.static(path.join(ROOT, dir)));
-});
-// Option: if you keep everything inside a /public folder instead, it is served too.
-app.use(express.static(path.join(ROOT, "public")));
+if (process.env.TRUST_PROXY) app.set("trust proxy", Number(process.env.TRUST_PROXY) || 1); // needed on Render, Railway, etc.
+app.use(express.json({ limit: "20kb" }));                  // refuse huge requests
+app.use(express.static(path.join(__dirname, "public")));   // your website
 
 /* ---------- Email (optional) ---------- */
+// Email is only switched on when the SMTP_* settings exist in .env.
+// If they are missing, messages are still saved to the file below.
 let mailer = null;
 if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
     const port = Number(process.env.SMTP_PORT) || 465;
     mailer = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port,
-        secure: port === 465,
+        secure: port === 465,                              // 465 = SSL, 587 = STARTTLS
         auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
     });
-    if (!ON_VERCEL) {
-        mailer.verify()
-            .then(() => console.log("Email: connected to " + process.env.SMTP_HOST))
-            .catch(err => console.warn("Email: could NOT connect (" + err.message + ")."));
-    }
+    mailer.verify()
+        .then(() => console.log("Email: connected to " + process.env.SMTP_HOST))
+        .catch(err => console.warn("Email: could NOT connect (" + err.message + "). Messages will still be saved to file."));
 } else {
-    console.log("Email: not configured (add SMTP_* settings). Messages are only saved to file.");
+    console.log("Email: not configured (add SMTP_* to .env). Messages are saved to data/messages.jsonl only.");
 }
 
 /* ---------- Helpers ---------- */
+// Remove control characters and trim. Keeps line breaks only when asked.
 function clean(value, { multiline = false } = {}) {
     let s = String(value ?? "");
     s = multiline ? s.replace(/[^\S\n]+/g, " ").replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, "")
@@ -87,10 +79,12 @@ function clean(value, { multiline = false } = {}) {
     return s.trim();
 }
 
+// Make text safe to put inside an HTML email (stops injected HTML/scripts).
 function escapeHtml(s) {
     return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+// Check the data and return { errors, values }
 function validate(body) {
     const values = {
         name: clean(body.name),
@@ -108,14 +102,14 @@ function validate(body) {
 
 function saveMessage(record) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
-    fs.appendFileSync(MESSAGES_FILE, JSON.stringify(record) + "\n", "utf8");
+    fs.appendFileSync(MESSAGES_FILE, JSON.stringify(record) + "\n", "utf8");   // one JSON message per line
 }
 
 async function emailMessage(m) {
     await mailer.sendMail({
         from: `"VoltPro Website" <${process.env.SMTP_USER}>`,
         to: CONTACT_TO,
-        replyTo: `"${m.name.replace(/"/g, "")}" <${m.email}>`,
+        replyTo: `"${m.name.replace(/"/g, "")}" <${m.email}>`,      // press Reply to answer the customer
         subject: `New website enquiry: ${m.service} - ${m.name}`,
         text: `Name: ${m.name}\nEmail: ${m.email}\nService: ${m.service}\nReceived: ${m.receivedAt}\n\n${m.message}\n`,
         html: `<h2>New website enquiry</h2>
@@ -140,7 +134,8 @@ const contactLimiter = rateLimit({
 app.post("/api/contact", contactLimiter, async (req, res) => {
     const body = req.body && typeof req.body === "object" ? req.body : {};
 
-    if (body.website) return res.status(200).json({ ok: true, message: "Thank you." }); // bot trap
+    // Honeypot: a hidden field that only bots fill in. Pretend success, store nothing.
+    if (body.website) return res.status(200).json({ ok: true, message: "Thank you." });
 
     const { errors, values } = validate(body);
     if (Object.keys(errors).length) {
@@ -148,22 +143,20 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
     }
 
     const record = { id: crypto.randomUUID(), receivedAt: new Date().toISOString(), ...values };
-    const canEmail = Boolean(mailer && CONTACT_TO);
 
-    // 1) Try to save to file. A save problem only matters when email is not available either.
-    let saved = true;
-    try { saveMessage(record); }
-    catch (err) { saved = false; console.error("Could not save message:", err.message); }
-
-    // 2) Email it to the business owner.
-    let emailed = false;
-    if (canEmail) {
-        try { await emailMessage(record); emailed = true; }
-        catch (err) { console.error("Email failed:", err.message); }
+    // 1) Save first, so a message is never lost even if email fails.
+    try {
+        saveMessage(record);
+    } catch (err) {
+        console.error("Could not save message:", err);
+        return res.status(500).json({ ok: false, error: "Sorry, something went wrong on our side. Please call or email us instead." });
     }
 
-    if (!saved && !emailed) {
-        return res.status(500).json({ ok: false, error: "Sorry, something went wrong on our side. Please call or email us instead." });
+    // 2) Then try to email it to the business owner.
+    let emailed = false;
+    if (mailer && CONTACT_TO) {
+        try { await emailMessage(record); emailed = true; }
+        catch (err) { console.error("Email failed (message is still saved):", err.message); }
     }
 
     return res.status(201).json({
@@ -173,7 +166,7 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
     });
 });
 
-/* ---------- API: read saved messages (owner only; on Vercel this is temporary storage) ---------- */
+/* ---------- API: read saved messages (owner only) ---------- */
 app.get("/api/messages", (req, res) => {
     const sent = String(req.get("x-admin-token") || "");
     const a = Buffer.from(sent), b = Buffer.from(ADMIN_TOKEN);
@@ -183,21 +176,20 @@ app.get("/api/messages", (req, res) => {
     if (!fs.existsSync(MESSAGES_FILE)) return res.json({ ok: true, count: 0, messages: [] });
     const messages = fs.readFileSync(MESSAGES_FILE, "utf8").split("\n").filter(Boolean)
         .map(line => { try { return JSON.parse(line); } catch (e) { return null; } })
-        .filter(Boolean).reverse();
+        .filter(Boolean).reverse();                         // newest first
     res.json({ ok: true, count: messages.length, messages });
 });
 
-app.get("/api/health", (req, res) => res.json({ ok: true, email: Boolean(mailer), vercel: ON_VERCEL, time: new Date().toISOString() }));
+app.get("/api/health", (req, res) => res.json({ ok: true, email: Boolean(mailer), time: new Date().toISOString() }));
 
 /* ---------- Errors ---------- */
 app.use("/api", (req, res) => res.status(404).json({ ok: false, error: "Not found." }));
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {                           // bad JSON, too-large body, etc.
     if (res.headersSent) return next(err);
     const status = err.status && err.status < 500 ? err.status : 500;
     res.status(status).json({ ok: false, error: status === 500 ? "Server error." : "Invalid request." });
 });
 
-// Local: start a server. Vercel: it imports the exported app instead.
 if (require.main === module) {
     app.listen(PORT, () => console.log(`VoltPro server running: http://localhost:${PORT}`));
 }
