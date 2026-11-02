@@ -1,9 +1,6 @@
 /* =====================================================================
-   VOLTPRO - script.js
-   FRONTEND: mobile menu, sticky-header shadow, active menu link, scroll
-   animations, back-to-top button and footer year.
-   BACKEND CONNECTION: the contact form is sent to the server (server.js)
-   at /api/contact - see the last section of this file.
+   VOLTPRO - script.js - FIXED FOR GITHUB PAGES
+   Contact form now uses FormSubmit.co (no server needed)
    ===================================================================== */
 (function () {
     "use strict";
@@ -83,78 +80,6 @@
     } else {
         targets.forEach(el => el.classList.add("visible"));
     }
-})();
-
-/* =====================================================================
-   CONTACT FORM -> BACKEND
-   Sends the form as JSON to POST /api/contact (handled by server.js).
-   ===================================================================== */
-(function () {
-    "use strict";
-
-    const form = document.getElementById("contactForm");
-    const statusBox = document.getElementById("formStatus");
-    if (!form) return;
-
-    // Hidden spam-trap field. Real visitors never see it; bots fill it in.
-    const trap = document.createElement("input");
-    trap.type = "text";
-    trap.name = "website";
-    trap.tabIndex = -1;
-    trap.autocomplete = "off";
-    trap.setAttribute("aria-hidden", "true");
-    trap.style.cssText = "position:absolute;left:-9999px;width:1px;height:1px;opacity:0;";
-    form.appendChild(trap);
-
-    function show(text, ok) {
-        if (!statusBox) return;
-        statusBox.textContent = text;
-        statusBox.style.color = ok ? "#137a4b" : "#b42318";
-        statusBox.style.fontWeight = "600";
-    }
-
-    // "document" + capture phase = runs before any other submit code on the page.
-    document.addEventListener("submit", async function (e) {
-        if (e.target !== form) return;
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        const button = form.querySelector("button[type=submit]");
-        const original = button ? button.textContent : "";
-
-        const data = {
-            name: form.elements.name.value,
-            email: form.elements.email.value,
-            service: form.elements.service.value,
-            message: form.elements.message.value,
-            website: trap.value,
-        };
-
-        if (button) { button.disabled = true; button.textContent = "Sending..."; }
-        show("Sending your message...", true);
-
-        try {
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-            const result = await res.json().catch(() => ({}));
-
-            if (res.ok && result.ok) {
-                form.reset();
-                show(result.message || "Thank you! Your message has been received.", true);
-            } else if (res.status === 400 && result.fields) {
-                show(Object.values(result.fields).join(" "), false);
-            } else {
-                show(result.error || "Sorry, your message could not be sent. Please try again.", false);
-            }
-        } catch (err) {
-            show("Cannot reach the server. Please check your connection or contact us by phone or email.", false);
-        } finally {
-            if (button) { button.disabled = false; button.textContent = original; }
-        }
-    }, true);
 })();
 
 /* ===== Upgrade: clicking "Request this service" pre-selects it in the form ===== */
