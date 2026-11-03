@@ -5,86 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VoltPro Electrical - Powering Your World</title>
 <link rel="stylesheet" href="style.css">
-<style>
-/* ADDED FOR BUTTONS - ONLY THIS */
-.page-section{display:none !important;}
-.page-section.active{display:block !important;}
-.nav-links button{border:none;background:none;cursor:pointer;font:inherit;padding:8px 16px;}
-.nav-links button.active{background:#facc15;border-radius:20px;color:#000;}
-</style>
 </head>
 <body>
 
 <header class="header">
-<nav class="nav">
-  <div class="nav-logo">VOLTPRO</div>
-  <ul class="nav-links" id="navLinks">
-    <li><button data-page="home" class="nav-link active">Home</button></li>
-    <li><button data-page="about" class="nav-link">About</button></li>
-    <li><button data-page="services" class="nav-link">Services</button></li>
-    <li><button data-page="projects" class="nav-link">Projects</button></li>
-    <li><button data-page="contact" class="nav-link nav-contact">Contact Us</button></li>
-  </ul>
-</nav>
+  <nav class="nav">
+    <div class="nav-logo">VOLTPRO</div>
+    <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Open navigation">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact" class="nav-contact">Contact Us</a></li>
+    </ul>
+  </nav>
 </header>
 
 <main>
-  <section class="hero page-section active" id="home">
-    <span class="eyebrow">POWERING YOUR WORLD</span>
-    <h1>Reliable Electrical Solutions for a Brighter Future.</h1>
-    <p class="hero-description">Professional electrical installation, maintenance, repair, and engineering services you can trust.</p>
-    <div class="hero-actions">
-      <button data-page="contact" class="btn btn-primary">Request a Quote</button>
-      <button data-page="services" class="btn btn-outline">Explore Services</button>
+  <!-- HOME -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="eyebrow">POWERING YOUR WORLD</span>
+      <h1>Reliable Electrical Solutions for a Brighter Future.</h1>
+      <p class="hero-description">Professional electrical installation, maintenance, repair, and engineering services you can trust.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Request a Quote</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
     </div>
-    <div class="hero-highlights">
-      <div class="highlight"><span>01</span> Professional Approach</div>
-      <div class="highlight"><span>02</span> Safety Focused</div>
-      <div class="highlight"><span>03</span> Dependable Solutions</div>
+    <div class="highlight-grid">
+      <div><span>01</span><h4>Professional Approach</h4><p>Clear communication and organized project delivery.</p></div>
+      <div><span>02</span><h4>Safety Focused</h4><p>Safety-conscious electrical work and practices.</p></div>
+      <div><span>03</span><h4>Dependable Solutions</h4><p>Practical services designed around your requirements.</p></div>
     </div>
   </section>
 
-  <section class="section about page-section" id="about">
-    <span class="eyebrow">WHO WE ARE</span>
-    <h2>Delivering Power, Safety and Confidence.</h2>
+  <!-- ABOUT -->
+  <section class="section about" id="about">
+    <div class="section-heading">
+      <span class="eyebrow">WHO WE ARE</span>
+      <h2>Delivering Power, Safety and Confidence.</h2>
+    </div>
     <div class="about-grid">
-      <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e" alt="Electrician" style="width:100%;border-radius:12px;">
-      <div><p>Quality service - reliable solutions built around your needs. VoltPro Electrical provides residential and commercial electrical services.</p></div>
+      <div class="about-image"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e" alt="Electrician" style="width:100%;border-radius:12px;"></div>
+      <div class="about-content"><p>Quality service - reliable solutions built around your needs. VoltPro Electrical provides residential and commercial electrical services in Liberia.</p></div>
     </div>
   </section>
 
-  <section class="section services page-section" id="services">
-    <h2>Our Services</h2>
-    <p>House Wiring, Solar System Installation, Electrical Repair & Maintenance, Industrial Work</p>
+  <!-- SERVICES -->
+  <section class="section services" id="services">
+    <div class="section-heading"><h2>Our Services</h2></div>
+    <div class="services-grid">
+      <div class="service-card"><h3>House Wiring</h3><p>Complete house wiring & installation</p><a href="#contact" data-service="House Wiring">Request this service</a></div>
+      <div class="service-card"><h3>Solar System</h3><p>Solar installation for home & business</p><a href="#contact" data-service="Solar System">Request this service</a></div>
+      <div class="service-card"><h3>Repair & Maintenance</h3><p>Electrical repair & maintenance</p><a href="#contact" data-service="Repair">Request this service</a></div>
+      <div class="service-card"><h3>Industrial Work</h3><p>Industrial & commercial electrical work</p><a href="#contact" data-service="Industrial">Request this service</a></div>
+    </div>
   </section>
 
-  <section class="section projects page-section" id="projects">
-    <h2>Our Projects</h2>
-    <p>Completed electrical projects will appear here.</p>
+  <!-- PROJECTS -->
+  <section class="section projects" id="projects">
+    <div class="section-heading"><h2>Our Projects</h2></div>
+    <div class="project-card">Project 1 - Completed wiring project</div>
+    <div class="project-card">Project 2 - Solar installation</div>
+    <div class="project-note">More projects coming soon</div>
   </section>
 
-  <section class="section contact page-section" id="contact">
-    <h2>Contact Us</h2>
-    <p>Phone: +231 XXX XXX | Email: voltpro@email.com</p>
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="section-heading"><h2>Contact Us</h2></div>
+    <div class="contact-grid">
+      <div class="contact-item"><p>Phone: +231 XXX XXX XXX</p></div>
+      <div class="contact-item"><p>Email: voltpro@email.com</p></div>
+      <form class="contact-form" action="https://formsubmit.co/your@email.com" method="POST">
+        <select id="service" name="service" required>
+          <option value="">Select a service</option>
+          <option value="House Wiring">House Wiring</option>
+          <option value="Solar System">Solar System</option>
+          <option value="Repair">Repair</option>
+          <option value="Industrial">Industrial</option>
+        </select>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Message"></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+    <div class="cta-content"><p>Ready to power your world?</p></div>
   </section>
 </main>
 
-<script src="script.js"></script>
-<script>
-// BUTTON LOGIC - ONLY HTML CHANGE, NO OTHER FILE NEEDED
-const pages=document.querySelectorAll('.page-section');
-const btns=document.querySelectorAll('[data-page]');
-function openPage(name){
-  pages.forEach(p=>p.classList.remove('active'));
-  const t=document.getElementById(name);
-  if(t) t.classList.add('active');
-  btns.forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll(`[data-page="${name}"]`).forEach(b=>b.classList.add('active'));
-  window.scrollTo(0,0);
-}
-btns.forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
-openPage('home');
-</script>
+<footer><p>&copy; <span id="year"></span> VoltPro Electrical. All rights reserved.</p></footer>
+<button id="backToTop" class="back-to-top">↑</button>
 
+<script src="script.js"></script>
 </body>
 </html>
