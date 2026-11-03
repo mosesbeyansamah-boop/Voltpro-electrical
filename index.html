@@ -1,104 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VoltPro Electrical - Powering Your World</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltPro Electrical Solutions | Residential, Commercial &amp; Industrial Electrical</title>
+    <meta name="description" content="Professional electrical installation, repair, maintenance and engineering services for homes, businesses and industries in Baguio, Philippines.">
+    <meta name="theme-color" content="#0b1f3a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="VoltPro Electrical Solutions">
+    <meta property="og:description" content="Reliable electrical installation, repair and maintenance you can trust.">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<header class="header">
-  <nav class="nav">
-    <div class="nav-logo">VOLTPRO</div>
-    <button id="menuToggle" class="menu-toggle" aria-expanded="false" aria-label="Open navigation">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact" class="nav-contact">Contact Us</a></li>
-    </ul>
-  </nav>
-</header>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-<main>
-  <!-- HOME -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <span class="eyebrow">POWERING YOUR WORLD</span>
-      <h1>Reliable Electrical Solutions for a Brighter Future.</h1>
-      <p class="hero-description">Professional electrical installation, maintenance, repair, and engineering services you can trust.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Request a Quote</a>
-        <a href="#services" class="btn btn-outline">Explore Services</a>
-      </div>
-    </div>
-    <div class="highlight-grid">
-      <div><span>01</span><h4>Professional Approach</h4><p>Clear communication and organized project delivery.</p></div>
-      <div><span>02</span><h4>Safety Focused</h4><p>Safety-conscious electrical work and practices.</p></div>
-      <div><span>03</span><h4>Dependable Solutions</h4><p>Practical services designed around your requirements.</p></div>
-    </div>
-  </section>
+    
+    <header class="header">
+        <nav class="navbar container" aria-label="Main navigation">
+            <a href="#home" class="logo" aria-label="VoltPro home">
+                <span class="logo-icon" aria-hidden="true">⚡</span> VoltPro<span>.</span>
+            </a>
 
-  <!-- ABOUT -->
-  <section class="section about" id="about">
-    <div class="section-heading">
-      <span class="eyebrow">WHO WE ARE</span>
-      <h2>Delivering Power, Safety and Confidence.</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-image"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e" alt="Electrician" style="width:100%;border-radius:12px;"></div>
-      <div class="about-content"><p>Quality service - reliable solutions built around your needs. VoltPro Electrical provides residential and commercial electrical services in Liberia.</p></div>
-    </div>
-  </section>
+            <button class="menu-toggle" id="menuToggle" type="button"
+                    aria-label="Open navigation" aria-expanded="false" aria-controls="navLinks">
+                ☰
+            </button>
 
-  <!-- SERVICES -->
-  <section class="section services" id="services">
-    <div class="section-heading"><h2>Our Services</h2></div>
-    <div class="services-grid">
-      <div class="service-card"><h3>House Wiring</h3><p>Complete house wiring & installation</p><a href="#contact" data-service="House Wiring">Request this service</a></div>
-      <div class="service-card"><h3>Solar System</h3><p>Solar installation for home & business</p><a href="#contact" data-service="Solar System">Request this service</a></div>
-      <div class="service-card"><h3>Repair & Maintenance</h3><p>Electrical repair & maintenance</p><a href="#contact" data-service="Repair">Request this service</a></div>
-      <div class="service-card"><h3>Industrial Work</h3><p>Industrial & commercial electrical work</p><a href="#contact" data-service="Industrial">Request this service</a></div>
-    </div>
-  </section>
+            <ul class="nav-links" id="navLinks">
+  <li><button data-page="home" class="nav-link active">Home</button></li>
+  <li><button data-page="about" class="nav-link">About</button></li>
+  <li><button data-page="services" class="nav-link">Services</button></li>
+  <li><button data-page="projects" class="nav-link">Projects</button></li>
+  <li><button data-page="contact" class="nav-link nav-contact">Contact Us</button></li>
+</ul>
+        </nav>
+    </header>
 
-  <!-- PROJECTS -->
-  <section class="section projects" id="projects">
-    <div class="section-heading"><h2>Our Projects</h2></div>
-    <div class="project-card">Project 1 - Completed wiring project</div>
-    <div class="project-card">Project 2 - Solar installation</div>
-    <div class="project-note">More projects coming soon</div>
-  </section>
+    <main id="main">
+        
+        <section class="hero page-section active" id="home">
+            <div class="hero-overlay"></div>
 
-  <!-- CONTACT -->
-  <section class="section contact" id="contact">
-    <div class="section-heading"><h2>Contact Us</h2></div>
-    <div class="contact-grid">
-      <div class="contact-item"><p>Phone: +231 XXX XXX XXX</p></div>
-      <div class="contact-item"><p>Email: voltpro@email.com</p></div>
-      <form class="contact-form" action="https://formsubmit.co/your@email.com" method="POST">
-        <select id="service" name="service" required>
-          <option value="">Select a service</option>
-          <option value="House Wiring">House Wiring</option>
-          <option value="Solar System">Solar System</option>
-          <option value="Repair">Repair</option>
-          <option value="Industrial">Industrial</option>
-        </select>
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Message"></textarea>
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </form>
-    </div>
-    <div class="cta-content"><p>Ready to power your world?</p></div>
-  </section>
-</main>
+            <div class="container hero-content">
+                <p class="eyebrow">POWERING YOUR WORLD</p>
 
-<footer><p>&copy; <span id="year"></span> VoltPro Electrical. All rights reserved.</p></footer>
-<button id="backToTop" class="back-to-top">↑</button>
+                <h1>Reliable Electrical Solutions for a Brighter Future.</h1>
 
-<script src="script.js"></script>
+                <p class="hero-description">
+                    Professional electrical installation, maintenance, repair,
+                    and engineering services you can trust.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Request a Quote →</a>
+                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                </div>
+
+                <div class="hero-trust">
+                    <span>✓ Professional Service</span>
+                    <span>✓ Quality Workmanship</span>
+                    <span>✓ Customer Satisfaction</span>
+                </div>
+            </div>
+        </section>
+
+        <div style="background:#0f172a;color:white;padding:14px 20px;display:flex;flex-wrap:wrap;justify-content:center;gap:20px;font-size:14px;font-weight:700;"><span>✓ Licensed Electrician</span><span>✓ 10+ Years Experience</span><span>✓ 24/7 Emergency</span><span>✓ Angeles City Certified</span></div>
+        <section class="highlights" aria-label="Company highlights">
+            <div class="container highlight-grid">
+                <div>
+                    <h2>Electrical Expertise</h2>
+                    <p>Solutions for homes, businesses, and industries.</p>
+                </div>
+
+                <div>
+                    <h2>Safety First</h2>
+                    <p>Careful work with safety at every step.</p>
+                </div>
+
+                <div>
+                    <h2>Quality Service</h2>
+                    <p>Reliable solutions built around your needs.</p>
+                </div>
+            </div>
+        </section>
+
+        
+       <section class="section about page-section" id="about">
+            <div class="container about-grid">
+                <div class="about-image">
+                    <img
+                        src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1000&q=85"
+                        alt="Electrician working on an electrical installation"
+                        width="1000" height="750" loading="lazy" decoding="async">
+                    <div class="image-label">
+                        <strong>Powering Progress</strong>
+                        <span>One connection at a time</span>
+                    </div>
+                </div>
+
+                <div class="about-content">
+                    <p class="eyebrow">WHO WE ARE</p>
+                    <h2>Delivering Power, Safety and Confidence.</h2>
+
+                    <p>
+                        VoltPro Electrical Solutions provides professional
+                        electrical services for residential, commercial, and
+                        industrial clients.
+                    </p>
+
+                    <p>
+                        Our focus is on dependable service, quality workmanship,
+                        safety, and practical solutions that meet each client's
+                        electrical needs.
+                    </p>
+
+                    <ul class="check-list">
+                        <li>Electrical installation and upgrades</li>
+                        <li>Electrical troubleshooting and repairs</li>
+                        <li>Preventive maintenance</li>
+                        <li>Professional project support</li>
+                    </ul>
+
+                    <a href="#contact" class="btn btn-dark">Work With Us →</a>
+                </div>
+            </div>
+        </section>
+
+        
+         <section class="section services page-section" id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">WHAT WE DO</p>
+                    <h2>Our Electrical Services</h2>
+                    <p>Complete electrical solutions for different environments.</p>
+                </div>
+
+                <div class="service-grid">
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🏠</div>
+                        <h3>Residential Electrical</h3>
+                        <p>
+                            Electrical wiring, lighting installation,
+                            power outlets, and home electrical upgrades.
+                        </p>
+                        <a href="#contact" data-service="Residential Electrical">Request this service →</a>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🏢</div>
+                        <h3>Commercial Electrical</h3>
+                        <p>
+                            Electrical systems, office installations,
+                            lighting solutions, and business maintenance.
+                        </p>
+                        <a href="#contact" data-service="Commercial Electrical">Request this service →</a>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">⚙️</div>
+                        <h3>Industrial Electrical</h3>
+                        <p>
+                            Electrical equipment installation, industrial
+                            wiring, and system troubleshooting.
+                        </p>
+                        <a href="#contact" data-service="Industrial Electrical">Request this service →</a>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🔧</div>
+                        <h3>Electrical Repairs</h3>
+                        <p>
+                            Fault detection, troubleshooting, and repair
+                            of electrical systems.
+                        </p>
+                        <a href="#contact" data-service="Electrical Repairs">Request this service →</a>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">💡</div>
+                        <h3>Lighting Solutions</h3>
+                        <p>
+                            Modern lighting installation, upgrades,
+                            and energy-conscious lighting solutions.
+                        </p>
+                        <a href="#contact" data-service="Lighting Solutions">Request this service →</a>
+                    </article>
+
+                    <article class="service-card">
+                        <div class="service-icon" aria-hidden="true">🛡️</div>
+                        <h3>Maintenance &amp; Safety</h3>
+                        <p>
+                            Electrical inspections, preventive maintenance,
+                            and safety-focused improvements.
+                        </p>
+                        <a href="#contact" data-service="Maintenance and Safety">Request this service →</a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section why-us" id="why-us">
+            <div class="container why-grid">
+                <div>
+                    <p class="eyebrow">WHY CHOOSE VOLTPRO</p>
+                    <h2>Committed to Quality at Every Connection.</h2>
+                    <p>
+                        We believe electrical work should be dependable,
+                        professionally delivered, and designed with safety
+                        in mind.
+                    </p>
+                    <a href="#contact" class="btn btn-primary">Contact Our Team →</a>
+                </div>
+
+                <div class="why-points">
+                    <div class="why-item">
+                        <span>01</span>
+                        <div>
+                            <h3>Professional Approach</h3>
+                            <p>Clear communication and organized project delivery.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-item">
+                        <span>02</span>
+                        <div>
+                            <h3>Safety Focused</h3>
+                            <p>Safety-conscious electrical work and practices.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-item">
+                        <span>03</span>
+                        <div>
+                            <h3>Dependable Solutions</h3>
+                            <p>Practical services designed around your requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="section projects page-section" id="projects">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">OUR WORK</p>
+                    <h2>Featured Projects</h2>
+                    <p>Examples of electrical work and project categories.</p>
+                </div>
+
+                <div class="project-grid">
+                    <article class="project-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85"
+                            alt="Modern commercial office interior"
+                            width="900" height="600" loading="lazy" decoding="async">
+                        <div class="project-info">
+                            <span>COMMERCIAL</span>
+                            <h3>Office Electrical Systems</h3>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85"
+                            alt="Modern residential building"
+                            width="900" height="600" loading="lazy" decoding="async">
+                        <div class="project-info">
+                            <span>RESIDENTIAL</span>
+                            <h3>Residential Electrical Solutions</h3>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <img
+                            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=85"
+                            alt="Technical engineering equipment"
+                            width="900" height="600" loading="lazy" decoding="async">
+                        <div class="project-info">
+                            <span>ENGINEERING</span>
+                            <h3>Electrical Engineering Support</h3>
+                        </div>
+                    </article>
+                </div>
+
+                <p class="project-note">
+                    Replace these sample images and project descriptions with
+                    photographs and details of your company's completed work.
+                </p>
+            </div>
+        </section>
+
+        <section style="padding:60px 20px;background:#f8fafc;text-align:center;">
+  <div style="max-width:800px;margin:0 auto;">
+    <h2 style="font-size:28px;font-weight:800;color:#0f172a;">Meet the Owner</h2>
+    <h3 style="font-size:20px;color:#2563eb;margin-top:10px;">Moses B Samah</h3>
+    <p style="margin-top:15px;color:#475569;line-height:1.7;">Licensed Master Electrician with 10+ years experience. Owner and lead technician at VoltPro Electrical. Dedicated to safe, reliable electrical solutions for homes and businesses in Angeles City, Clark, and Pampanga.</p>
+    <p style="margin-top:10px;font-weight:700;">✓ Licensed • ✓ Insured • ✓ 24/7 Emergency Service</p>
+  </div>
+</section>
+        <section class="cta">
+            <div class="container cta-content">
+                <div>
+                    <p class="eyebrow">LET'S GET STARTED</p>
+                    <h2>Need a Reliable Electrical Partner?</h2>
+                    <p>Tell us about your project. Let's find the right solution.</p>
+                </div>
+
+                <a href="#contact" class="btn btn-light">Get in Touch →</a>
+            </div>
+        </section>
+
+        
+       <section class="section contact page-section" id="contact">
+            <div class="container">
+                <div class="section-heading">
+                    <p class="eyebrow">CONTACT US</p>
+                    <h2>Let's Talk About Your Project</h2>
+                    <p>Send us a message and our team can follow up with you.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-details">
+                        <h3>Get in Touch</h3>
+                        <p>
+                            Have a question or need an electrical service?
+                            Contact our team.
+                        </p>
+
+                        <div class="contact-item">
+                            <span aria-hidden="true">✉️</span>
+                            <div>
+                                <strong>Email</strong>
+                                <p><a href="mailto:mosesbeyansamah@gmail.com">mosesbeyansamah@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span aria-hidden="true">📞</span>
+                            <div>
+                                <strong>Phone</strong>
+                                <p><a href="tel:+639557329472">+63 955 732 9472</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <span aria-hidden="true">📍</span>
+                            <div>
+                                <strong>Location</strong>
+                                <p>Baguio, Philippines</p>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <form class="contact-form" id="contactForm2" action="https://formsubmit.co/9a0f8e14af7efe4207b3d72c526c9c53" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_subject" value="New Client - VoltPro Website">
+  <input type="hidden" name="_next" value="https://mosesbeyansamah-boop.github.io/Voltpro-electrical/">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name"
+                                       placeholder="Your full name"
+                                       autocomplete="name" minlength="2" maxlength="80" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email"
+                                       placeholder="Your email address"
+                                       autocomplete="email" maxlength="254" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Needed</label>
+                            <select id="service" name="service" required>
+                                <option value="">Choose a service</option>
+                                <option>Residential Electrical</option>
+                                <option>Commercial Electrical</option>
+                                <option>Industrial Electrical</option>
+                                <option>Electrical Repairs</option>
+                                <option>Lighting Solutions</option>
+                                <option>Maintenance and Safety</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                      placeholder="Tell us about your project..."
+                                      minlength="10" maxlength="2000"
+                                      required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            Send Message →
+                        </button>
+
+                        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <footer class="footer">
+        <div class="container footer-content">
+            <a href="#home" class="logo footer-logo" aria-label="VoltPro home">
+                <span class="logo-icon" aria-hidden="true">⚡</span> VoltPro<span>.</span>
+            </a>
+
+            <p>Professional electrical solutions. Powering a brighter future.</p>
+
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <p class="copyright">
+                © <span id="year"></span> VoltPro Electrical Solutions.
+                All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">↑</button>
+
+
+<style>
+.float-btn {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  right: 20px;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.float-btn:hover { transform: scale(1.1); }
+.whatsapp-btn {
+  bottom: 20px;
+  background-color: #25D366;
+}
+.call-btn {
+  bottom: 90px;
+  background-color: #007bff;
+}
+.float-btn svg { width: 32px; height: 32px; fill: white; }
+</style>
+
+
+    <footer style="background:#0f172a;color:#cbd5e1;padding:40px 20px 20px;">
+<div style="max-width:1100px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;">
+<div><h3 style="color:white;">⚡ VoltPro Electrical</h3><p style="font-size:14px;line-height:1.6;margin-top:10px;">Professional electrical services in Angeles City, Pampanga. Safe, reliable, affordable.</p></div>
+<div><h4 style="color:white;">Services</h4><p style="font-size:14px;line-height:2;margin-top:10px;">Residential Wiring<br>Commercial Electrical<br>Industrial Electrical<br>Emergency Repairs<br>Lighting Solutions</p></div>
+<div><h4 style="color:white;">Contact & Hours</h4><p style="font-size:14px;line-height:1.8;margin-top:10px;">📞 +63 955 732 9472<br>📍 Angeles City<br>Mon-Sat: 7AM-7PM<br>Sunday: Emergency Only</p></div>
+</div>
+<div style="max-width:1100px;margin:25px auto 0;"><iframe src="https://www.google.com/maps?q=Angeles%20City%20Pampanga&z=13&output=embed" width="100%" height="250" style="border:0;border-radius:10px;"></iframe></div>
+ <div style="text-align:center;margin-top:25px;padding:20px;border-top:1px solid #334155;color:#94a3b8;font-size:14px;">© 2026 VoltPro Electrical. Owned by <strong style="color:white;">Moses B Samah</strong> - Licensed Master Electrician | Angeles City, Philippines</div>
+</footer>
+<a href="https://wa.me/639557329472?text=Hello%20VoltPro%20Electrical,%20I%20need%20an%20electrician%20service" 
+   class="float-btn whatsapp-btn" target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.513-1.004-1.123-1.364-1.81-.342-.669-.62-1.39-.82-2.157-.2-.77-.298-1.55-.298-2.36 0-.63.105-1.18.315-1.654a2.1 2.1 0 0 1 1.088-1.1c.31-.15.654-.229 1.036-.229h.35c.13 0 .29.03.39.1.1.07.14.2.14.4v1.7c0 .13-.03.23-.1.3a.7.7 0 0 1-.25.15l-.9.4c-.13.06-.2.13-.2.2v.2c.02.33.1.66.23.98.13.32.31.63.55.92.24.29.52.55.84.78.32.23.66.41 1.02.54.36.13.73.2 1.11.2h.1c.07 0 .14-.03.2-.1l.4-.9c.06-.13.13-.2.2-.25.07-.05.17-.07.3-.07h1.7c.2 0 .33.04.4.14.07.1.1.26.1.39v.35c0 .38-.08.73-.23 1.036a2.1 2.1 0 0 1-1.1 1.088c-.474.21-.924.315-1.354.315zM12.04 2C6.58 2 2.16 6.42 2.16 11.88c0 1.98.53 3.82 1.5 5.42L2 22l4.86-1.55A9.83 9.83 0 0 0 12.04 22c5.46 0 9.88-4.42 9.88-9.88S17.5 2 12.04 2z"/></svg>
+</a>
+
+
+<a href="tel:+639557329472" class="float-btn call-btn" title="Call Now">
+  <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.057 15.057 0 01-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01A11.36 11.36 0 018.59 3.99a1 1 0 00-1-1H4.08c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
+</a>
+
 </body>
+    
 </html>
